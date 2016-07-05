@@ -7,15 +7,18 @@ services:
       - ./app:/usr/src/app
     ports:
       - "3000:3000"
-#     networks:
-#       - backend
-#     depends_on:
-#       - redis
-#
-#   redis:
-#     image: redis:alpine
-#     networks:
-#       - backend
-#
-# networks:
-#   backend:
+    networks:
+      - database
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    networks:
+      database:
+        aliases:
+          - my-redis
+
+
+networks:
+  database:
